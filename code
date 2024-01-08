@@ -1,0 +1,86 @@
+Task: Deploy application in monolithic and microservices architecture.
+Description: -
+Task 1: For monolithic : 1 EC2 instance, deploy wordpress and MYSQL on the same 
+instances.
+Create a welcome page in wordpress that will be the homepage.
+Step1: Login to AWS free tier account. Search for EC2 instance in the dashboard
+Instance Step 2: Create one EC2.
+Name: monolithec2-task1
+AMI: Ubuntu
+Instance Type: t2.micro
+Key pair: monolith-key (new created)
+Step 3: Allowed inbound traffic for SSH, HTTP/HTTPS (port 80 and 443) for WordPress 
+access and port 3306 for MySQL access
+Step 4: The EC2 Instance launched Successfully->Click on connect to further process.
+Installed apache2 server on Ubuntu.
+sudo apt install apache2
+Now copy the public IP of the EC2 and paste on the new tab
+The Apache2 Default page open means our wordpress is up and running successfully.
+Installed MySql Server.
+Sudo apt install mysql-server
+Login to MySql Server
+sudo mysql -u root
+Change authentication plugin to mysql_native_password (Choose strong Password)
+Create new database user for wordpress.
+Create a database for wordpress.
+Grant all Privileges on the database ‘wordpress’ to the newly created user.
+on terminal type command as:
+cd /tmp
+wget https://wordpress.org/latest.tar.gz
+Extract the zip file.
+Now WordPress is successfully installed.
+ls
+wordpress file contain index.html
+Now copy the public IP of the EC2 and paste on the new tab as below,
+http://<public-ip-of-ec2>/wordpress
+go to next step and fill all details – database name, username & password.
+Click on submit
+wp-config.php error occur to fix it copy the code below.
+on the terminal, inside wordpress folder-> create nano wp.config.php file and paste 
+above copied code
+Fill all the details to host/deploy your webpage.
+Now install wordpress and Login with username & password.
+see your first webpage is open successfully on the wordpress.
+
+  
+Task 2: For microservices: 2 EC2 instance, 1 for wordpress and 1 for MYSQL - Configure 
+the necessary security group for the instances - EC2 instance type: t2-micro, AMI: ubuntu-* 
+Create a welcome page in wordpress that will be the homepage.
+Instance Step : Create two EC2 Instances.
+AMI: Ubuntu.
+Select mysqlinstance and copy the public ip address and connect through ssh.
+Install MySql
+Sudo apt update
+sudo apt install mysql-server
+Secure database server : Follow the prompts to set a root password, remove 
+anonymous users, disallow remote root login, and remove test databases. 
+1. Type Y to set a password, and type a secure password twice. 
+2. Type Y to remove the anonymous user accounts. 
+3. Type N to enable the remote root login. 
+4. Type Y to remove the test database. 
+5. Type Y to reload the privilege tables and save your changes.
+Create user and database for wordpress
+Sudo mysql secure installation
+Sudo mysql -u root –p
+mysql> CREATE DATABASE abhiwordpress;
+Query OK, 1 row affected (0.01 sec)
+mysql> CREATE USER 'abhi_user'@'%' IDENTIFIED BY 'abhi@123';
+Query OK, 0 rows affected (0.02 sec)
+mysql> GRANT ALL PRIVILEGES ON abhiwordpress.* TO 'abhi_user'@'%';
+Query OK, 0 rows affected (0.00 sec)
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+Connect to the WordPress instance via SSH, then install required packages such as Apache, 
+PHP, etc.
+Once installed, download WordPress
+The wp-config-sample.php file and rename the copy as wp-config.php to generate a fresh 
+configuration file while preserving the original sample file
+Edit the host, database name, user and password.
+In the same file find the section called Authentication Unique Keys and Salts. 
+Complete setup is now done, browse with your public IP. 
+
+
+
+
+
+
